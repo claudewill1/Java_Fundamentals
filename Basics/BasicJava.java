@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
+import java.util.stream.IntStream;
 import java.lang.Math;
+import java.lang.reflect.Array;
 public class BasicJava {
     // Print 1-255
     public void print1To255(){
@@ -37,13 +39,17 @@ public class BasicJava {
         return arr[n - 1];
     }
     // Array with Odd Numbers
-    public int[] arrayOfOdds() {
-        int n = (255/2);
-        int[] y = new int[n];
-        for(int i = 0; i < n; i++) {
-            if(i % 2 == 1) y[i] += i;
+    public int[] arrOfOdds() {
+        return IntStream.iterate(1, i -> i + 2)
+        .takeWhile(i -> i < 256)
+        .toArray();
+    }
+    public int[] arrOfOdds(int n) {
+        int[] arr = new int[((n+1)/2)];
+        for(int i = 0, e = 1; i < arr.length; e += 2, i++){
+            arr[i] = e;
         }
-        return y;
+        return arr;
     }
     // Ninja Bonuses
     // Get Average
@@ -59,36 +65,56 @@ public class BasicJava {
     }
     // Greater than Y
     public int greaterThanY(int[] arr, int y) {
-        int n = arr.length;
-        int left = 0;
-        int right = n - 1;
-        
-        int leftGreater = n;
-        while(left <= right) {
-            int mid = left + (right + left) / 2;
-            if(arr[mid] > y) {
-                leftGreater = mid;
-                right = mid - 1;
-            }
-            else left = mid + 1;
+       
+        int sum = 0;
+        for (int i : arr) {
+            if(i > y) sum += i;
         }
-        return (n - leftGreater);
+        return sum;
         
     }
     // square values of array
     public int[] squareValues(int[] arr){
         int[] squared = new int[arr.length];
-        for(int i : arr) {
+        for(int i = 0; i < arr.length; i++) {
             squared[i] = (int)Math.pow(arr[i],2);
         }
         return squared;
     }
     // Eliminate Negative Numbers from Array
     public int[] eliminateNegative(int[] arr) {
-        int[] newArr = new int[arr.length - 1];
-        for(int i : arr) {
-            if(arr[i] >= 0) newArr[i] += arr[i];
+        int[] newArr = new int[arr.length];
+        for(int i = 0; i < arr.length; i++) {
+            newArr[i] += i;
         }
         return newArr;
+    }
+
+    // Sensei Bonuses:
+    // Max, Min, and Average
+    public Integer[] maxMinAvg(int[] arr){
+        ArrayList<Integer> res = new ArrayList<>();
+        Arrays.sort(arr);
+        int sum = 0;
+        res.add(arr[arr.length-1]);
+        res.add(arr[0]);
+        for (int integer : arr) {
+            sum += integer;
+        }
+        res.add(sum/arr.length);
+        Integer[] a = new Integer[res.size()];
+        a = res.toArray(a);
+        return a;
+
+    }
+
+    // Shifting the Values in the Array
+    public int[] shiftArrayLeft(int[] arr) {
+        int[] res = new int[arr.length];
+        for(int i = 0; i < arr.length; i++) {
+            res[i] = arr[(1+i)%arr.length];
+            
+        }
+        return res;
     }
 }
