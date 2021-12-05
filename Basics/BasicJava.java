@@ -51,6 +51,7 @@ public class BasicJava {
         }
         return arr;
     }
+    
     // Ninja Bonuses
     // Get Average
     public void getAvgOfArr(int[] arr) {

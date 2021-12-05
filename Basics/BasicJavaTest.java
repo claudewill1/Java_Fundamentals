@@ -43,5 +43,7 @@ public class BasicJavaTest {
         // Shift array elements left
         int[] shiftArr = {1,5,10,7,-2};
         System.out.println(Arrays.toString(test.shiftArrayLeft(shiftArr)));
+
+        
     }    
 }
